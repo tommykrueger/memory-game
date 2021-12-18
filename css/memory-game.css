@@ -1,0 +1,268 @@
+.memory-game {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1em;
+    overflow: hidden;
+    position: relative;
+    /* background-color: #f0f0f0; */
+}
+.memory-board {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+    grid-gap: 15px;
+}
+/*
+    @media $query.m
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
+        grid-gap: 20px
+*/
+
+.memory-card-item {
+    width: 100%;
+    height: 100%;
+    /* border: 3px solid #f1f1f1; */
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    background-color: transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+.memory-card-item.visible .memory-card-item-inner {
+    transform: rotateY(180deg);
+}
+.memory-card-item.no-match:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 50, 50, 0.5);
+}
+.memory-card-item.solved {
+    opacity: 0.0;
+}
+.memory-card-item.solved .memory-card-item-inner {
+    transform: rotateY(180deg);
+}
+
+.memory-card-item:nth-child(n+1) {
+    transform: rotate(1.2deg);
+}
+.memory-card-item:nth-child(2n+1) {
+    transform: rotate(-1.8deg);
+}
+.memory-card-item:nth-child(3n+1) {
+    transform: rotate(1.4deg);
+}
+.memory-card-item:nth-child(4n+1) {
+    transform: rotate(-1.4deg);
+}
+.memory-card-item:nth-child(5n+1) {
+    transform: rotate(1.8deg);
+}
+.memory-card-item:nth-child(6n+1) {
+    transform: rotate(0.8deg);
+}
+.memory-card-item:nth-child(7n+1) {
+    transform: rotate(-1.2deg);
+}
+
+.memory-card-item-inner {
+    width: 100%;
+    padding-top: 100%;
+    display: block;
+    text-align: center;
+    position: relative;
+    transition: transform 0.25s;
+    transform-style: preserve-3d;
+}
+
+.memory-card-item-front,
+.memory-card-item-back {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.memory-card-item-front {
+    padding: 20px;
+    color: black;
+    cursor: pointer;
+    box-shadow: inset 0 0 8px rgba(0,0,0, 0.25);
+    transition: all 150ms ease-in-out;
+    background: repeating-linear-gradient(
+        -45deg,
+        #222,
+        #222 10px,
+        #333 10px,
+        #333 20px
+    );
+
+}
+
+/*
+.memory-item:hover .memory-item-inner {
+    transform: rotateY(25deg);
+}
+*/
+.memory-card-item:hover .memory-card-item-front {
+    background: repeating-linear-gradient(
+            -45deg,
+            #333,
+            #333 10px,
+            #444 10px,
+            #444 20px
+    );
+}
+.memory-card-item-back {
+    color: white;
+    transform: rotateY(180deg);
+}
+.memory-card-item img {
+    height: 100%;
+}
+
+
+
+
+.memory-ui {
+    height: 50px;
+    margin: 3em 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    background-color: rgba(255,255,255,0.65);
+}
+.memory-ui .memory-moves {
+    display: flex;
+}
+.memory-ui .memory-matches {
+    display: flex;
+    align-items: center;
+}
+#memoryMoves,
+#memoryMatches {
+    margin: 0 5px;
+    font-weight: 500;
+}
+.memory-matches-cards {
+    margin: 0 20px;
+}
+.memory-matches-cards,
+.memory-matches-cards:before {
+    width: 64px;
+    height: 64px;
+    display: block;
+    transform: rotate(-16deg);
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 2px solid #666;
+    background: repeating-linear-gradient(
+        -45deg,
+        #222,
+        #222 5px,
+        #333 5px,
+        #333 10px
+    );
+}
+.memory-matches-cards:before {
+    content: '';
+    transform: rotate(18deg);
+}
+
+
+
+
+
+.memory-slider {
+    width: 300px;
+    height: auto;
+    margin-left: -150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1.0;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: scale(1.0);
+
+    visibility: hidden;
+    backface-visibility: hidden;
+}
+.memory-slider.no-match {
+    color: red;
+    font-size: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: #fff 0 1px 1px;
+}
+.memory-slider.match {
+    color: green;
+    font-size: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: #fff 0 1px 1px;
+}
+.memory-slider.show {
+    visibility: visible;
+    transition: all 1000ms;
+}
+.memory-slider.show.slideUp {
+    top: 50%;
+    opacity: 0.0;
+}
+
+
+
+.move-item {
+    width: 64px;
+    height: 64px;
+    display: block;
+    position: fixed;
+    transition: all 350ms ease-out;
+}
+.move-item img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+.playBtn {
+    width: auto;
+    min-width: 240px;
+    margin: 10px auto;
+    padding: 12px;
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    border: 0;
+    border-radius: 4px;
+    background-color: #00a175;
+    transition: all 80ms ease-in-out;
+}
+.playBtn:hover {
+    background-color: #00c48e;
+    text-decoration: none;
+}

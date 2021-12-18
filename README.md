@@ -1,1 +1,3 @@
-# memory-game
+# Memory Game
+
+How it works:

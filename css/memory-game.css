@@ -13,8 +13,8 @@
     padding: 0;
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
-    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(10.5%, 1fr));
+    grid-gap: 4% 2%;
 }
 /*
     @media $query.m

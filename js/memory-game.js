@@ -8,6 +8,8 @@ class MemoryGame {
         this.timeout = null;
 
         this.cardMoves = 0;
+
+        // how many cards have been collected so far
         this.cardsCollected = 0;
         this.cardsMatch = 0;
 
